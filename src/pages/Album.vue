@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="row justify-center">
-      <div class="col-8">
+      <div class="col-8 col-xs-10">
 
         <h1 class="text-h2 text-center text-bold">
           Photos from {{ albumTitle }}
@@ -20,7 +20,7 @@
       <q-btn color="primary" icon="add_a_photo" label="Add Photo" @click="openDialog()"/>
     </div>
     
-    <div class="albums__container q-pa-xl row items-start justify-center q-gutter-md">
+    <div class="albums__container q-pa-md row items-start justify-center q-gutter-md">
       <div class="col-xs-12 col-sm-4 col-md-3 col-lg-4 col-xl-4" v-for="photo in albumPhotos" :key="photo.id">
         <PhotoCard :photo="photo" @edit-photo="openDialog"/>
       </div>
@@ -86,3 +86,12 @@ export default {
 
 }
 </script>
+
+<style lang="scss">
+  .text-h2 {
+    @media only screen and (max-width: 1024px) {
+      font-size: 2.875rem;
+      line-height: 2.875rem;
+    }
+  }
+</style>

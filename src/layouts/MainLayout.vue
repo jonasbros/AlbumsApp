@@ -93,9 +93,6 @@ export default {
       mobileDrawer: false
     }
   },
-  created() {
-    console.log(this.$q.platform.is)
-  }
 }
 </script>
 

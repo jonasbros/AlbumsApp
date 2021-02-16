@@ -10,7 +10,6 @@
     <q-card-actions align="right" v-if="$route.name == 'albumEdit'">
       <q-btn 
         flat 
-        round 
         color="primary" 
         icon="edit" 
         @click="$emit('edit-photo', photo)"
@@ -18,7 +17,6 @@
       />
       <q-btn 
         flat 
-        round 
         color="red" 
         icon="delete" 
         @click="deletePhotoDialog = true"

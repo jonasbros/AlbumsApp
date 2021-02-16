@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
-    <div class="row justify-center">
-      <q-card class="my-card col-md-6 col-sm-8 col-xs-10">
+    <div class="row justify-center q-mt-md">
+      <q-card class="my-card col-md-6 col-sm-8 col-xs-12">
         <q-card-section>
           <div class="row items-center justify-start">
             <q-avatar 
@@ -39,10 +39,12 @@
       </q-card>
     </div>
 
-    <h2 class="text-center text-h4">Albums</h2>
+    <h2 class="text-center text-bold text-h4 q-mb-none q-pb-none">
+      Albums
+    </h2>
 
-    <div class="albums__container row items-start justify-center q-gutter-md q-mt-md">
-      <div class="col-xs-10 col-sm-4 col-md-3 col-lg-3 col-xl-3" v-for="album in userAlbums" :key="album.id">
+    <div class="albums__container row items-start justify-center q-gutter-md q-mt-sm q-pt-none q-pl-md q-pr-md  ">
+      <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3" v-for="album in userAlbums" :key="album.id">
         <AlbumCard :album="album" :fromUserPage="true"/>
       </div>
     </div>
@@ -81,7 +83,6 @@ export default {
     @media only screen and (min-width: 1024px) {
       width: 70%;
       margin: 16px auto;
-
     }
 
   }

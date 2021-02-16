@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
-    <div class="row justify-center">
-      <div class="col-xs-10 col-sm-8 col-md-5 col-lg-5 col-xl-5">
+    <div class="row justify-center q-pa-sm">
+      <div class="col-xs-12 col-sm-8 col-md-5 col-lg-5 col-xl-5">
 
         <div class="shadow-1" style="max-width: 100%">
           <q-list bordered padding>

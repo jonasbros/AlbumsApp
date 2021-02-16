@@ -32,7 +32,7 @@
           :to="{ name: 'user', params: { userId: album.userId } }"
           class="hover__link"
         >
-          {{ getAlbumUserName(album.userId) }}
+          {{ albumUserName }}
         </router-link>
       </div>
 
@@ -40,14 +40,13 @@
         <q-btn 
           :to="{ name: 'albumEdit', params: { albumTitle: album.title, albumId: album.id, userId: album.userId } }"
           flat 
-          round color="primary"
+          color="primary"
           icon="edit"
           label="Edit"
         />
 
         <q-btn 
           flat 
-          round 
           color="red" 
           icon="delete" 
           label="Delete"
@@ -92,6 +91,7 @@ export default {
     return {
       albumCardDialog: false,
       thumbnailUrl: '',
+      albumUserName: '',
     }
   },
   computed: {
@@ -105,7 +105,8 @@ export default {
   mounted() {
     setTimeout(() => {
         this.getAlbumThumbnail();
-    }, 250);
+        this.getAlbumUserName();
+    }, 500);
   },
   methods: {
     deleteAlbum(albumId) {
@@ -114,10 +115,10 @@ export default {
     //get user info for each album
     getAlbumUserName(userId) {
       let albumUser = this.users.filter((user) => {
-        return userId == user.id;
+        return this.album.userId == user.id;
       });
       
-      return albumUser[0].name;
+      this.albumUserName = albumUser[0].name;
     },
     //get first photo in album as album thumbnail
     getAlbumThumbnail() {
@@ -127,5 +128,6 @@ export default {
       this.thumbnailUrl = albumThumbnail[0].thumbnailUrl;
     }
   },
+  
 }
 </script>

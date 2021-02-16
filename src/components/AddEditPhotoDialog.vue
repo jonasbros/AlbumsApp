@@ -23,7 +23,7 @@
           <div class="row justify-center">
             <q-form
               @submit.prevent="updateAlbum"
-              class="q-gutter-md col-md-6 col-sm-10 col-xs-10"
+              class="q-gutter-md col-md-6 col-sm-10 col-xs-12"
             >
               <q-input
                 filled
