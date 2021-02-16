@@ -43,6 +43,7 @@ export default {
       userId: this.$route.params.userId,
       addEditDialog: false,
       editPhotoInfo: null,
+      albumUserName: '',
     }
   },
   computed: {
@@ -56,19 +57,26 @@ export default {
         return this.albumId == photo.albumId;
       });
     },
-    albumUserName() {
-      let user =  this.users.filter((user) => {
-        return this.userId == user.id;
-      });
-
-      return user[0].name;
-    },
+  },
+  mounted() {
+    setTimeout(() => {
+      if( !this.thumbnailUrl ) {
+        this.getAlbumUserName();
+      }
+    }, 150);
   },
   methods: {
     openDialog(photo = null) {
       this.editPhotoInfo = photo;
       this.addEditDialog = true;
-    }
+    },
+    getAlbumUserName() {
+      let user =  this.users.filter((user) => {
+        return this.userId == user.id;
+      });
+
+      this.albumUserName = user[0].name;
+    },
   }
 
 

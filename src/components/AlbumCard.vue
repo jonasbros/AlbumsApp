@@ -87,9 +87,7 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      if( !this.thumbnailUrl ) {
         this.getAlbumThumbnail();
-      }
     }, 250);
   },
   methods: {
@@ -107,9 +105,8 @@ export default {
     //get first photo in album as album thumbnail
     getAlbumThumbnail() {
       let albumThumbnail = this.photos.filter((photo) => {
-        return this.album.id == photo.id;
+        return this.album.id == photo.albumId;
       });
-
       this.thumbnailUrl = albumThumbnail[0].thumbnailUrl;
     }
   },

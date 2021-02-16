@@ -13,6 +13,7 @@
         <q-tabs
           v-model="navBtnActive"
           inline-label
+          class="desktop__tabs"
         >
           <q-route-tab 
             :to="{ name: 'albums' }"
@@ -25,8 +26,55 @@
             label="Users"
           />
         </q-tabs>
+
+        <q-btn 
+          icon="menu"
+          flat
+          @click="mobileDrawer = !mobileDrawer"
+          class="mobile__menu"
+        />
       </q-toolbar>
     </q-header>
+    
+    <q-drawer
+      v-model="mobileDrawer"
+      :width="300"
+      :breakpoint="1024"
+      overlay
+      bordered
+      content-class="bg-grey-3"
+      side="right"
+      class="mobile__drawer"
+    >
+      <q-scroll-area class="fit">
+        <q-list>
+          <q-item-label header>Album App</q-item-label>
+
+          <q-item>
+            <q-item-section avatar>
+              <q-icon color="primary" name="bookmark" />
+            </q-item-section>
+            <q-item-section>
+              <router-link :to="{ name: 'albums' }" class="hover__link">
+                Albums
+              </router-link>
+            </q-item-section>
+          </q-item>
+
+          <q-item>
+            <q-item-section avatar>
+              <q-icon color="primary" name="account_circle" />
+            </q-item-section>
+            <q-item-section>
+              <router-link :to="{ name: 'users' }" class="hover__link">
+                Users
+              </router-link>
+            </q-item-section>
+          </q-item>
+
+        </q-list>        
+      </q-scroll-area>
+    </q-drawer>
 
     <q-page-container>
       <router-view />
@@ -43,7 +91,11 @@ export default {
   data () {
     return {
       navBtnActive: 'albums',
+      mobileDrawer: false
     }
+  },
+  created() {
+    console.log(this.$q.platform.is)
   }
 }
 </script>
@@ -51,5 +103,18 @@ export default {
 <style lang="scss">
   .q-header, .q-toolbar {
     height: 75px;
+  }
+
+  .desktop__tabs {
+    
+    @media only screen and (max-width: 1024px) {
+      display: none;
+    }
+  }
+
+  .mobile__drawer, .mobile__menu {
+    @media only screen and (min-width: 1024px) {
+      display: none;
+    }
   }
 </style>
