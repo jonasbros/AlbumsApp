@@ -42,7 +42,6 @@
       :breakpoint="1024"
       overlay
       bordered
-      content-class="bg-grey-3"
       side="right"
       class="mobile__drawer"
     >

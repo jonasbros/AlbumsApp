@@ -18,12 +18,12 @@
 
         <q-card-section>
           <div class="row justify-center">
-            <h2 class="text-white text-bold">{{ addEditHeader }} a photo</h2>
+            <h2 class="text-white text-bold">{{ addEditHeader }} photo</h2>
           </div>
           <div class="row justify-center">
             <q-form
               @submit.prevent="updateAlbum"
-              class="q-gutter-md col-6"
+              class="q-gutter-md col-md-6 col-sm-10 col-xs-10"
             >
               <q-input
                 filled
@@ -77,9 +77,7 @@
             </q-form>
           </div>
 
-
         </q-card-section>
-
       </q-card>
     </q-dialog>
 </template>

@@ -2,7 +2,11 @@
   <q-page padding>
     <div class="row justify-center">
       <div class="col-8">
-        <h1 class="text-h2 text-center text-bold">Photos from {{ albumTitle }}</h1>
+
+        <h1 class="text-h2 text-center text-bold">
+          Photos from {{ albumTitle }}
+        </h1>
+
         <p class="text-h4 text-center">
           By 
           <router-link :to="{ name: 'user', params: { userId: userId} }" class="hover__link">
@@ -17,7 +21,7 @@
     </div>
     
     <div class="albums__container q-pa-xl row items-start justify-center q-gutter-md">
-      <div class="col-3" v-for="photo in albumPhotos" :key="photo.id">
+      <div class="col-xs-12 col-sm-4 col-md-3 col-lg-4 col-xl-4" v-for="photo in albumPhotos" :key="photo.id">
         <PhotoCard :photo="photo" @edit-photo="openDialog"/>
       </div>
     </div>

@@ -1,8 +1,6 @@
 import axios from 'axios';
 
 export function fetchAlbums (context) {
-    if( context.state.albums.length ) return;
-
     axios.get('https://jsonplaceholder.typicode.com/albums')
         .then((response) => {
             context.commit('setAlbums', response.data);
@@ -13,8 +11,6 @@ export function fetchAlbums (context) {
 }
 
 export function fetchUsers (context) {
-    if( context.state.users.length ) return;
-
     axios.get('https://jsonplaceholder.typicode.com/users')
     .then((response) => {
         context.commit('setUsers', response.data);
@@ -25,8 +21,6 @@ export function fetchUsers (context) {
 }
 
 export function fetchPhotos (context) {
-    if( context.state.photos.length ) return;
-
     axios.get('https://jsonplaceholder.typicode.com/photos')
     .then((response) => {
         context.commit('setPhotos', response.data);

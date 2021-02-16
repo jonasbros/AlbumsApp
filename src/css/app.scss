@@ -1,1 +1,19 @@
 // app global css in SCSS form
+* {
+    text-decoration: none;
+}
+
+body {
+    background: {
+        image: url(https://img.freepik.com/free-vector/graph-paper_127747-40.jpg?size=626&ext=jpg);
+        attachment: fixed;
+    }
+}
+
+.hover__link {
+    color: $dark;
+    transition: color 150ms linear;
+    &:hover {
+        color: $primary !important;
+    }
+}

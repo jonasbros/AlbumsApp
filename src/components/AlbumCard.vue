@@ -1,15 +1,30 @@
 <template>
   <q-card class="my-card" :key="album.id">
-    <img :src="thumbnailUrl">
+    <router-link 
+      :to="{ 
+        name: 'album', 
+        params: { albumTitle: album.title, albumId: album.id, userId: album.userId }
+      }"
+      style="display: inline-block; max-width: 100%; width: 100%;"
+    >
+      <img 
+        :src="thumbnailUrl"
+        style="max-width: 100%; width: 100%;"
+      >
+    </router-link>
 
     <q-card-section>
       <!-- album title -->
       <router-link 
-        :to="{ name: 'album', params: { albumTitle: album.title, albumId: album.id, userId: album.userId } }"
+        :to="{ 
+          name: 'album', 
+          params: { albumTitle: album.title, albumId: album.id, userId: album.userId }
+        }"
         class="text-h6 hover__link"
       >
         {{ album.title }}
       </router-link>
+      
       <!-- user name -->
       <div class="text-subtitle2" v-if="!fromUserPage">
         by
@@ -27,6 +42,7 @@
           flat 
           round color="primary"
           icon="edit"
+          label="Edit"
         />
 
         <q-btn 
@@ -34,6 +50,7 @@
           round 
           color="red" 
           icon="delete" 
+          label="Delete"
           @click="albumCardDialog = true"
         />
       </q-card-actions>
@@ -52,7 +69,7 @@
         </q-card-section>
 
         <q-card-actions align="right" class="bg-white text-teal">
-          <q-btn flat label="Delete" v-close-popup @click="deleteAlbum(album.id)"/>
+          <q-btn flat label="Delete" text-color="negative" v-close-popup @click="deleteAlbum(album.id)"/>
           <q-btn flat label="Cancel" v-close-popup />
         </q-card-actions>
       </q-card>
