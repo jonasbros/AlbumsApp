@@ -7,7 +7,7 @@
           Photos from {{ albumTitle }}
         </h1>
 
-        <p class="text-h4 text-center">
+        <p class="text-h4 text-center" v-if="albumUserName">
           By 
           <router-link :to="{ name: 'user', params: { userId: userId} }" class="hover__link">
             {{ albumUserName }}
@@ -20,7 +20,7 @@
       <q-btn color="primary" icon="add_a_photo" label="Add Photo" @click="openDialog()"/>
     </div>
     
-    <div class="albums__container q-pa-md row items-start justify-center q-gutter-md">
+    <div class="albums__container q-pa-md row items-start justify-center q-gutter-md" v-if="albumPhotos">
       <div class="col-xs-12 col-sm-4 col-md-3 col-lg-4 col-xl-4" v-for="photo in albumPhotos" :key="photo.id">
         <PhotoCard :photo="photo" @edit-photo="openDialog"/>
       </div>
@@ -33,6 +33,7 @@
 <script>
 import PhotoCard from 'components/PhotoCard';
 import AddEditPhotoDialog from 'components/AddEditPhotoDialog';
+import axios from 'axios';
 
 export default {
   name: 'Album',
@@ -48,26 +49,12 @@ export default {
       addEditDialog: false,
       editPhotoInfo: null,
       albumUserName: '',
+      albumPhotos: [],
     }
   },
-  computed: {
-    users() {
-      return this.$store.getters['example/getUsers'];
-    },
-    albumPhotos() {
-      let photos = this.$store.getters['example/getPhotos'];
-
-      return photos.filter((photo) => {
-        return this.albumId == photo.albumId;
-      });
-    },
-  },
   mounted() {
-    setTimeout(() => {
-      if( !this.thumbnailUrl ) {
-        this.getAlbumUserName();
-      }
-    }, 150);
+    this.getAlbumUserName();
+    this.getAlbumPhotos();
   },
   methods: {
     openDialog(photo = null) {
@@ -75,11 +62,24 @@ export default {
       this.addEditDialog = true;
     },
     getAlbumUserName() {
-      let user =  this.users.filter((user) => {
-        return this.userId == user.id;
-      });
-
-      this.albumUserName = user[0].name;
+        axios
+        .get(`https://jsonplaceholder.typicode.com/users/${this.userId}/`)
+        .then((response) => {
+          this.albumUserName = response.data.name;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getAlbumPhotos() {
+        axios
+        .get(`https://jsonplaceholder.typicode.com/albums/${this.albumId}/photos`)
+        .then((response) => {
+          this.albumPhotos = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   }
 

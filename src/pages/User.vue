@@ -12,10 +12,10 @@
             />
 
             <div>
-              <div class="col text-h6 ellipsis">
+              <div class="col text-h6 ellipsis" v-if="user">
                 {{ user.name }}
               </div>
-              <div class="text-subtitle2">
+              <div class="text-subtitle2" v-if="user">
                 {{ user.email }}
               </div>  
             </div>   
@@ -23,7 +23,7 @@
   
         </q-card-section>
 
-        <q-card-section>
+        <q-card-section v-if="user">
           <div class="text-subtitle2">
             {{ user.company.name }} | {{ user.company.catchPhrase }}
           </div>
@@ -44,7 +44,7 @@
     </h2>
 
     <div class="albums__container row items-start justify-center q-gutter-md q-mt-sm q-pt-none q-pl-md q-pr-md  ">
-      <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3" v-for="album in userAlbums" :key="album.id">
+      <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3" v-for="album in albums" :key="album.id">
         <AlbumCard :album="album" :fromUserPage="true"/>
       </div>
     </div>
@@ -53,27 +53,44 @@
 
 <script>
 import AlbumCard from 'components/AlbumCard';
+import axios from 'axios';
 
 export default {
   name: 'User',
   components: {
     AlbumCard
   },
-  computed: {
-    user() {
-      let user = this.$store.getters['example/getUsers'].filter((user) => {
-        return this.$route.params.userId == user.id;
+  data() {
+    return {
+      user: null,
+      albums: null
+    }
+  },
+  mounted() {
+    this.getUser();
+  },
+  methods: {
+    getUser() {
+      axios
+      .get(`https://jsonplaceholder.typicode.com/users/${this.$route.params.userId}/`)
+      .then((response) => {
+        this.user = response.data;
+        this.getUserAlbums();
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      
-      return user[0];
     },
-    userAlbums() {
-      let userAlbums = this.$store.getters['example/getAlbums'].filter((album) => {
-        return this.$route.params.userId == album.userId;
+    getUserAlbums() {
+       axios
+      .get(`https://jsonplaceholder.typicode.com/users/${this.user.id}/albums`)
+      .then((response) => {
+        this.albums = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
       });
-
-      return userAlbums;
-    },
+    }
   }
 }
 </script>

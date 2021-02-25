@@ -86,7 +86,6 @@
 
 export default {
   name: 'MainLayout',
-  components: {  },
   data () {
     return {
       navBtnActive: 'albums',

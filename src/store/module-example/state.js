@@ -4,5 +4,8 @@ export default function () {
     albums: [],
     users: [],
     photos: [],
-  }
+    oneAlbum: [],
+    oneUser: [],
+    onePhoto: []
+  };
 }

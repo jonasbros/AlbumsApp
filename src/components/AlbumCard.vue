@@ -1,6 +1,7 @@
 <template>
   <q-card class="my-card" :key="album.id">
-    <router-link 
+    <router-link
+      v-if="thumbnailUrl" 
       :to="{ 
         name: 'album', 
         params: { albumTitle: album.title, albumId: album.id, userId: album.userId }
@@ -26,7 +27,7 @@
       </router-link>
       
       <!-- user name -->
-      <div class="text-subtitle2" v-if="!fromUserPage">
+      <div class="text-subtitle2" v-if="!fromUserPage && albumUserName">
         by
         <router-link 
           :to="{ name: 'user', params: { userId: album.userId } }"
@@ -77,6 +78,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'AlbumCard',
   props: 
@@ -94,38 +97,35 @@ export default {
       albumUserName: '',
     }
   },
-  computed: {
-    users() {
-      return this.$store.getters['example/getUsers'];
-    },
-    photos() {
-      return this.$store.getters['example/getPhotos'];
-    },
-  },
   mounted() {
-    setTimeout(() => {
-        this.getAlbumThumbnail();
-        this.getAlbumUserName();
-    }, 500);
+    this.getAlbumUserName();
+    this.getAlbumThumbnail();
   },
   methods: {
     deleteAlbum(albumId) {
       this.$store.commit('example/deleteAlbum', albumId);
     },
     //get user info for each album
-    getAlbumUserName(userId) {
-      let albumUser = this.users.filter((user) => {
-        return this.album.userId == user.id;
+    getAlbumUserName() {
+      axios
+      .get(`https://jsonplaceholder.typicode.com/users/${this.album.userId}/`)
+      .then((response) => {
+        this.albumUserName = response.data.name;
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      
-      this.albumUserName = albumUser[0].name;
     },
     //get first photo in album as album thumbnail
     getAlbumThumbnail() {
-      let albumThumbnail = this.photos.filter((photo) => {
-        return this.album.id == photo.albumId;
+      axios
+      .get(`https://jsonplaceholder.typicode.com/albums/${this.album.id}/photos`)
+      .then((response) => {
+        this.thumbnailUrl = response.data[0].thumbnailUrl;
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      this.thumbnailUrl = albumThumbnail[0].thumbnailUrl;
     }
   },
   

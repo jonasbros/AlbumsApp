@@ -42,14 +42,7 @@
 <script>
 export default {
   name: 'UserCard',
-  props: 
-    [
-      'user',
-    ]
-  ,
-  computed: {
-
-  },
+  props: ['user']
 }
 </script>
 

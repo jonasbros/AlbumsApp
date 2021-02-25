@@ -17,16 +17,32 @@
 
 <script>
 import UserListItem from 'components/UserListItem';
+import axios from 'axios';
 
 export default {
   name: 'Users',
   components: {
     UserListItem
   },
-  computed: {
-    users() {
-      return this.$store.getters['example/getUsers'];
-    },
+  data() {
+    return {
+      users: null,
+    }
+  },
+  created() {
+    this.getUsers();
+  },
+  methods: {
+    getUsers(){
+      axios
+      .get("https://jsonplaceholder.typicode.com/users")
+      .then((response) => {
+        this.users = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
   }
 }
 </script>
